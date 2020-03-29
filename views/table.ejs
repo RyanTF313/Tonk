@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tonk</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../profile.css">
+</head>
+<body class="body">
+<div class="container">
+
+    <div class="row">
+
+        <!-- LOCAL INFORMATION -->
+        <div class="userBox">
+            <div class="well">
+                <div class="page-header text-center">
+                    <h1>My Profile</h1><br>
+                    <strong>id</strong>: <span id="user" data-user="<%= user._id %>"><%= user._id %></span> <br>
+                    <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+                </div>            
+            </div>
+        </div>
+
+        <a href="/profile"><h2>Home</h2></a>
+
+        <div class="col-sm-6">
+          <h3>Tables</h3>
+              <% if (tableInfo) {%>
+                <p id="message"></p>
+                  <section class="table">
+                        <p> <%= JSON.stringify(tableInfo)%></p>
+                        <h1><%= tableInfo[0]['tableName']%></h1>
+                        <input type="text" class="hide" name="players" value="<%= JSON.stringify(tableInfo[0]['players'])%>">
+                        <input type="text" class="hide" name="tableId" value="<%= tableInfo[0]['_id']%>">
+                        <input type="text" class="hide" name="limit" value="<%= parseInt(tableInfo[0]['avalPlayers'])%>">
+                  </section>
+                  <button id="join">Join Table</button>
+              <% } %>
+              <% for (let i=0; i < tableInfo[0]['players'].length; i++) { %>
+                <% if (JSON.stringify(tableInfo[0]['players'][i]) === JSON.stringify(user._id)) {%>
+                    <main>
+                        <section class="game">
+                            <p>
+                                    <button>Get Cards</button>
+                                    <button>Shuffle</button>
+                                    <button>Draw from deck</button>
+                                    <button>Draw from pile</button>
+                                    <button>Drop</button>
+                            </p>
+                        </section>
+                    </main>
+                  <% } %>
+              <% } %>
+</div>
+
+<script src="../main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tonk</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body class="body">
+<div class="container">
+
+    <div class="row">
+
+        <!-- LOCAL INFORMATION -->
+        <div class="userBox">
+            <div class="well">
+                <div class="page-header text-center">
+                    <h1>My Profile</h1><br>
+                    <strong>id</strong>: <%= user._id %><br>
+                    <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+                </div>            
+            </div>
+        </div>
+
+        <a href="/start"><h2>Start a table</h2></a>
+        <a href="/join"><h2>Join a table</h2></a>
+
+        <div class="col-sm-6">
+          <h3>Your Tables</h3>
+            <ul class="messages">
+              <% for(var i=0; i< tables.length; i++) {%>
+                  <li class="message">
+                    <a href="/profile/<%= tables[i].tableName%>"><p><span>Table: <%= tables[i].tableName%></span> , <span>Players: <%= tables[i].avalPlayers%></span> </p></a>
+                  </li>
+              <% } %>
+          </ul>
+        
+
+</div>
+
+<!-- <script src="main.js"></script> -->
+
+</body>
+</html>

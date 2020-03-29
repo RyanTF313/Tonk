@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div class="container">
+        <title>Tonk</title>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+        <link rel="stylesheet" href="profile.css">
+    </head>
+    <body>
+    <div class="container">
+        
+        <div class="page-header text-center">
+            <h1>My Profile</h1><br>
+            <strong>id</strong>: <%= user._id %><br>
+            <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+        </div>
+    
+        <h2>Add Entry</h2>
+<div>
+    <a href="/profile">Go to Profile</a>
+    <form action="/createTable" method="POST">        
+        <input type="number" name="num" placeholder="number of players">
+        <input type="text" placeholder="Table name" name="name">
+        <input type="text" class="hide" name="tableId" value="<%= user._id %>">
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script src="main.js"></script>
+
+</body>
+</html>

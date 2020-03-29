@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tonk</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body class="body">
+<div class="container">
+
+    <div class="page-header text-center">
+        <h1>My Profile</h1>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+
+    <div class="row">
+
+        <!-- LOCAL INFORMATION -->
+        <div class="userBox">
+            <div class="well">
+                <h3><span class="fa fa-user"></span> Local</h3>
+
+                <% if (user.local.email) { %>
+                    <p>
+                        <strong>id</strong>: <%= user._id %><br>
+                        <strong>email</strong>: <%= user.local.email %><br>
+                        <strong>password</strong>: <%= user.local.password %>
+                    </p>
+
+                    <a href="/unlink/local" class="btn btn-default">Unlink</a>
+                <% } else { %>
+                    <a href="/connect/local" class="btn btn-default">Connect Local</a>
+                <% } %>
+
+            </div>
+        </div>
+
+        <a href="/add"><h2>Add an Entry</h2></a>
+          <h2>Find an Entry</h2>
+          <form action="/date" method="GET">
+            <input id="dateSelector" type="date" name="" value="">
+            <button id="sendSearch" type="button" name="button">Find Entry</button>
+          </form>
+
+        <div class="col-sm-6">
+          <h3>Enrties</h3>
+            <ul class="messages">
+              <% for(var i=0; i< messages.length; i++) {%>
+                  <li class="message">
+                    <a href="/date/<%= messages[i].date%>"><span><%= messages[i].date%> <span><%= messages[i].ent%></span></span></a>
+                  </li>
+              <% } %>
+          </ul>
+        
+
+</div>
+
+<script src="main.js"></script>
+
+</body>
+</html>
