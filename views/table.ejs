@@ -35,26 +35,40 @@
                         <input type="text" class="hide" name="tableId" value="<%= tableInfo[0]['_id']%>">
                         <input type="text" class="hide" name="limit" value="<%= parseInt(tableInfo[0]['avalPlayers'])%>">
                   </section>
-                  <button id="join">Join Table</button>
-              <% } %>
-              <% for (let i=0; i < tableInfo[0]['players'].length; i++) { %>
-                <% if (JSON.stringify(tableInfo[0]['players'][i]) === JSON.stringify(user._id)) {%>
-                    <main>
-                        <section class="game">
-                            <p>
-                                    <button>Get Cards</button>
-                                    <button>Shuffle</button>
-                                    <button>Draw from deck</button>
-                                    <button>Draw from pile</button>
-                                    <button>Drop</button>
-                            </p>
-                        </section>
-                    </main>
+                  <% for (let i=0; i < tableInfo[0]['players'].length; i++) { %>
+                    <% if (JSON.stringify(tableInfo[0]['players'][i]) !== JSON.stringify(user._id) &&  tableInfo[0]['players'].length <= tableInfo[0].avalPlayers) {%>
+                        <button id="join">Join Table</button>
+                        <% } %>
+                    <% if (JSON.stringify(tableInfo[0]['players'][i]) === JSON.stringify(user._id)) {%>
+                        <main>
+                            <section class="game">
+                                <section class="display"></section>
+                                <p class="start">
+                                        <% if (tableInfo[0]['deck']) { %>
+                                            <% if (tableInfo[0]['deck'].shuffled === false) { %>
+                                                <button class="shuffle" data-deck_id="<%= tableInfo[0]['deck'].deck_id%>">Shuffle</button>
+                                            <% } %>
+                                        <% } else { %>
+                                        <button class="getDeck">Get Deck</button>
+                                        <% } %>
+                                </p>
+                                <p class="play">
+                                        <button class="getCards">Get Cards</button>
+                                        <button class="discard">Discard</button>
+                                        <button class="drawDeck">Draw from deck</button>
+                                        <button class="drawPile">Draw from pile</button>
+                                        <button class="drop">Drop</button>
+                                </p>
+                            </section>
+                        </main>
+                      <% } %>
                   <% } %>
               <% } %>
+              
 </div>
 
 <script src="../main.js"></script>
+<script src="../card.js"></script>
 
 </body>
 </html>

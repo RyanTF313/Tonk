@@ -1,10 +1,14 @@
 const join = document.getElementById('join')
 
-join.addEventListener('click', ()=>{  
-        const user = document.getElementById("user").dataset.user
+join.addEventListener('click', ()=>{
+        const user_id = document.getElementById("user").dataset.user
         const id = document.querySelector('input[name="tableId"]').value
         const limit = document.querySelector('input[name="limit"]').value
         let players = document.querySelector('input[name="players"]').value
+        let user = {
+          'user_id': user_id,
+          'hand': []
+        }
         players = JSON.parse(players)
 
         if (players.length >= limit) {

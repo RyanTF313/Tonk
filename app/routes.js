@@ -1,5 +1,6 @@
 module.exports = function(app, passport, db) {
   var ObjectID = require('mongodb').ObjectID
+  const cardAPI = 'https://deckofcardsapi.com/api/deck/new/'
 
 // normal routes ===============================================================
 
@@ -25,9 +26,7 @@ module.exports = function(app, passport, db) {
 
   // Go to a specific table
   app.get('/profile/:table', isLoggedIn, function(req, res) {
-    //grabbing the table name passed in the url - NEED TO ALTER THIS LATER
-    let table = req.url.replace('/profile/','')
-      db.collection('tables').find({'tableName': table}).toArray((err, result) => {          
+      db.collection('tables').find({'tableName': req.params.table}).toArray((err, result) => {          
         if (err) return console.log(err)
         res.render('table.ejs', {
           user : req.user,
@@ -82,6 +81,34 @@ module.exports = function(app, passport, db) {
       .findOneAndUpdate({_id: ObjectID(req.body._id)}, {
         $set: {
           players:req.body.players
+        }
+      }, (err, result) => {
+        if (err) return res.send(err)
+        res.send(result)
+      })
+    })
+    app.put('/profile/addDeck', (req, res) => {      
+      db.collection('tables')
+      .findOneAndUpdate({_id: ObjectID(req.body.table_id)}, {
+        $set: {
+          deck:{
+            deck_id: req.body.deck_id,
+            shuffled: false
+          }
+        }
+      }, (err, result) => {
+        if (err) return res.send(err)
+        res.send(result)
+      })
+    })
+    app.put('/profile/shuffle', (req, res) => {      
+      db.collection('tables')
+      .findOneAndUpdate({_id: ObjectID(req.body.table_id)}, {
+        $set: {
+          deck: {
+            deck_id: req.body.deck_id,
+            shuffled: true
+          }
         }
       }, (err, result) => {
         if (err) return res.send(err)
